@@ -7,20 +7,20 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-public class BombermanScratches extends ApplicationAdapter {
+public class TexturePacker extends ApplicationAdapter {
 	SpriteBatch batch;
-	TextureAtlas walking;
-	Sprite[] spWalking;
+	TextureAtlas taBomberman;
+	Sprite[] spBomberman;
 	int i = 0, nSpeed = 0;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		walking = new TextureAtlas(Gdx.files.internal("bomber.txt"));
-		spWalking = new Sprite[7];
+		taBomberman = new TextureAtlas(Gdx.files.internal("bomber.txt"));
+		spBomberman = new Sprite[7];
 
 		for(i = 0; i < 7; i++) {
-			this.spWalking[i] = new Sprite(this.walking.findRegion("frame_" + i));
+			this.spBomberman[i] = new Sprite(this.taBomberman.findRegion("frame_" + i));
 		}
 	}
 
@@ -34,7 +34,7 @@ public class BombermanScratches extends ApplicationAdapter {
 			if (i == 7) {
 				i = 0;
 			} else {
-				spWalking[i].draw(batch);
+				spBomberman[i].draw(batch);
 				i++;
 			}
 		}
