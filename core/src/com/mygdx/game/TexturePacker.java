@@ -7,21 +7,23 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-// OPTION 1 (less smooth than option 2 - loops through sprites too fast)
+// OPTION 1
 public class TexturePacker extends ApplicationAdapter {
 	SpriteBatch batch;
 	TextureAtlas taBomberman;
 	Sprite[] spBomberman;
-	int i = 0, nSpeed = 0;
+	int j, nSpeed = 0;
 
 	@Override
 	public void create () {
+		j = 0;
+		nSpeed = 0;
 		batch = new SpriteBatch();
 		//Create an array sprites loaded from the TextureAtlas
 		taBomberman = new TextureAtlas(Gdx.files.internal("bomberman.txt"));
 		spBomberman = new Sprite[4];
 		//Loop through regions of the TextureAtlas and assign each to an index of the array
-		for(i = 0; i < 4; i++) {
+		for(int i = 0; i < 4; i++) {
 			this.spBomberman[i] = new Sprite(this.taBomberman.findRegion("frame_" + i));
 		}
 	}
@@ -32,15 +34,16 @@ public class TexturePacker extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		//Draw sprites on to screen
+		spBomberman[j].draw(batch);
 		//nSpeed changes the time interval at which the sprites are drawn
-//		nSpeed++;
-//		if(nSpeed%7 == 0) {
-			if (i == 4) {
-				i = 0;
+		nSpeed++;
+		if (nSpeed%6 == 0) {
+			if (j == 3) { //Make sure index stays within the bounds the array
+				j = 0;
 			} else {
-				spBomberman[i++].draw(batch);
+				j++;
 			}
-//		}
+		}
 		batch.end();
 	}
 }
